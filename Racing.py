@@ -3,7 +3,7 @@ import numpy as np
 import streamlit as st
 
 # Read the Excel file and drop rows where Country is South Africa
-df = pd.read_excel('C:/Users/liamh/PycharmProjects/Football/Football_Data/RDB_20230626.xlsx')
+df = pd.read_csv('https://raw.githubusercontent.com/lottiealice18/Racing/main/RDB_20230630.csv')
 df = df[df['Country'] != 'South Africa']
 
 # Convert date column to datetime type
@@ -292,7 +292,7 @@ def find_lowest_weight_horses(df):
     return races
 def horse_search():
     # Read the CSV file and drop rows where Country is South Africa
-    df = pd.read_csv(r'C:\Users\liamh\OneDrive\Desktop\Stats & Systems\All Years Combined - Clean.csv')
+    df = pd.read_csv('https://raw.githubusercontent.com/lottiealice18/Racing/main/All%20Years%20Combined%20-%20Clean.csv')
     df = df[df['Country'] != 'South Africa']
 
     # User input for horse name
@@ -358,7 +358,7 @@ def display_top_speed():
 
 def filter_rank():
     # Read historical data
-    df_hist = pd.read_excel(r'C:\Users\liamh\Downloads\RDB_20230624.xlsx')
+    df_hist = pd.read_csv(r'https://raw.githubusercontent.com/lottiealice18/Racing/main/RDB_20230630.csv')
 
     # Convert date column to datetime type
     df_hist['Date'] = pd.to_datetime(df_hist['Date'], format='%Y%m%d')
@@ -515,3 +515,133 @@ def display_course_and_distance():
         st.dataframe(df_filtered)
     else:
         st.write("No races available for this Filter.")
+
+
+def main_page():
+    st.title("Horse Racing Stats - Today's Card")
+
+    option = st.sidebar.radio(
+        "Select a section:",
+        (
+            'Todays Full Race Card as CSV', 'Todays Races By Venue and Time', 'Days Since Last Run',
+            'Display Class Data', 'Change of Class', 'Type of Race', 'Find Lowest Weight Horses', 'Horse Search',
+            'Top Speed', 'Rank Filter', 'Search by Trainer', 'Course And Distance', 'Jockey Search', 'Surface Type',
+            'Handicap/Non-Handicap', 'Flat/Jump'
+        )
+    )
+
+    if option == 'Todays Full Race Card as CSV':
+        st.subheader('Todays Full Race Card as CSV')
+        st.markdown(
+            'This page provides the complete race card for today as a CSV file. You can download the CSV file for more in-depth data analysis. Please note that the information provided is for reference purposes only and should be used as a guide.')
+        display_main_data()
+
+    elif option == 'Todays Races By Venue and Time':
+        st.subheader('Todays Races By Venue and Time')
+        st.markdown(
+            'This page displays the races for today organized by venue and time. You can use this information to plan your day and follow the race schedule.')
+        display_race_data()
+
+    elif option == 'Days Since Last Run':
+        st.subheader('Days Since Last Run')
+        display_horses_last_n_days()
+
+    elif option == 'Display Class Data':
+        st.subheader('Display Class Data')
+        st.markdown(
+            'This page provides data about the class of each race. Class is an important factor in horse racing as it indicates the level of competition.')
+        display_class_data()
+
+    elif option == 'Change of Class':
+        st.subheader('Change of Class')
+        st.markdown(
+            'This page provides information about changes in class for each race. The "Class Change" column in the data indicates any changes in class for the horses in a race. Class changes can provide insights into the competitiveness and level of competition in a race.')
+        change_of_class()
+
+    elif option == 'Type of Race':
+        st.subheader('Type of Race')
+        st.markdown(
+            'This page displays information about the specific race types, such as Hurdle, Apprentice, Juvenile, etc. Understanding the race types can help in analyzing the performance of horses in different race categories.')
+        display_race_type_data()
+
+
+    elif option == 'Find Lowest Weight Horses':
+
+        st.subheader('Find Lowest Weight Horses')
+
+        st.markdown(
+
+            'Have you ever heard the saying "Thrown in at the Weights"? This page lists races where there is a horse that is at least half a stone lighter than any other horse in the race. Identifying such horses can provide insights into potential advantages they may have. Please note that this information should be used as a guide for further analysis.')
+
+        races = find_lowest_weight_horses(df)
+
+        for i, race in enumerate(races):
+            st.subheader(f"Race {i + 1}")
+
+            st.dataframe(race)
+
+    elif option == 'Horse Search':
+        st.subheader('Horse Search')
+        st.markdown(
+            'This page allows you to search for specific horses by their names. You can find information about the selected horse past races.')
+        horse_search()
+
+    elif option == 'Top Speed':
+        st.subheader('Top Speed')
+        st.markdown(
+            'This page displays the top speeded horses in today\'s races. It provides insights into the performance capabilities of the horses.')
+        display_top_speed()
+
+    elif option == 'Rank Filter':
+        st.subheader('Rank Filter')
+        st.markdown(
+            'This page provides a list of horses that calculations suggest have the best chance of winning based on a combination of statistics. The rank filter is designed to help you identify potential contenders for a race. However, please note that horse racing is a complex sport and outcomes are never guaranteed. The information should be used as a guide and further analysis is recommended.')
+        filter_rank()
+
+    elif option == 'Search by Trainer':
+        st.subheader('Search by Trainer')
+        st.markdown(
+            'This page allows you to search for races by trainer. You can select a trainer from the drop-down menu to view the races associated with that trainer. You can also download the data for further analysis. Please note that the information provided is for reference purposes only and should be used as a guide.')
+        search_by_trainer()
+
+
+
+
+
+
+
+
+    elif option == 'Course And Distance':
+
+        st.subheader('Course and Distance')
+
+        display_course_and_distance()  # Call the display_course_and_distance() function
+    # Call the display_course_and_distance() function
+
+
+    elif option == 'Jockey Search':
+        st.subheader('Jockey Search')
+        st.markdown(
+            'This page allows you to search for specific jockeys by their names. You can view today\'s races they are riding in.')
+        jockey_search()
+
+    elif option == 'Surface Type':
+        st.subheader('Surface Type')
+        st.markdown(
+            'This page provides information about the surface type of each race, such as turf or dirt. Understanding the surface type can be crucial in assessing the performance of horses.')
+        display_surface_type_data()
+
+    elif option == 'Handicap/Non-Handicap':
+        st.subheader('Handicap/Non-Handicap')
+        st.markdown(
+            'This page displays data about the handicap and non-handicap races. Handicap races assign weights to horses to create a more competitive field.')
+        display_handicap_data()
+
+    elif option == 'Flat/Jump':
+        st.subheader('Flat/Jump')
+        st.markdown(
+            'This page provides information about the race category, whether it is a flat or jump race. Different categories have different characteristics and can impact the performance of horses.')
+        display_race_category_data()
+
+# Run the main page function
+main_page()
