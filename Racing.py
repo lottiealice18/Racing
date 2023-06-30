@@ -526,7 +526,7 @@ def main_page():
             'Todays Full Race Card as CSV', 'Todays Races By Venue and Time', 'Days Since Last Run',
             'Display Class Data', 'Change of Class', 'Type of Race', 'Find Lowest Weight Horses', 'Horse Search',
             'Top Speed', 'Rank Filter', 'Search by Trainer', 'Course And Distance', 'Jockey Search', 'Surface Type',
-            'Handicap/Non-Handicap', 'Flat/Jump'
+            'Handicap/Non-Handicap'
         )
     )
 
