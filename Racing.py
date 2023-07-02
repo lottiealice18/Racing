@@ -3,7 +3,7 @@ import numpy as np
 import streamlit as st
 
 # Read the Excel file and drop rows where Country is South Africa
-df = pd.read_csv('https://raw.githubusercontent.com/lottiealice18/Racing/main/July%202nd.csv')
+df = pd.read_csv(r'https://raw.githubusercontent.com/lottiealice18/Racing/main/July%202nd.csv')
 df = df[df['Country'] != 'South Africa']
 
 # Convert date column to datetime type
